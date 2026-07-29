@@ -38,7 +38,7 @@
 - Create: `backend/app/api/__init__.py`
 - Create: `backend/tests/test_smoke.py`
 
-- [ ] **Step 1: Write the failing import test**
+- [x] **Step 1: Write the failing import test**
 
 ```python
 def test_backend_package_is_importable() -> None:
@@ -47,13 +47,13 @@ def test_backend_package_is_importable() -> None:
     assert callable(create_app)
 ```
 
-- [ ] **Step 2: Run the test and verify it fails**
+- [x] **Step 2: Run the test and verify it fails**
 
 Run: `cd backend && pytest tests/test_smoke.py -v`
 
 Expected: FAIL because `app.main` does not exist.
 
-- [ ] **Step 3: Add package setup and the smallest application factory**
+- [x] **Step 3: Add package setup and the smallest application factory**
 
 ```toml
 [project]
@@ -82,13 +82,13 @@ def create_app() -> FastAPI:
 app = create_app()
 ```
 
-- [ ] **Step 4: Run the test and lint**
+- [x] **Step 4: Run the test and lint**
 
 Run: `cd backend && pytest tests/test_smoke.py -v && ruff check app tests`
 
 Expected: one passing test and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend
@@ -102,7 +102,7 @@ git commit -m "build: bootstrap minesweeper backend"
 - Create: `backend/app/domain/board.py`
 - Create: `backend/tests/domain/test_board_creation.py`
 
-- [ ] **Step 1: Write failing domain tests**
+- [x] **Step 1: Write failing domain tests**
 
 ```python
 def test_seeded_board_has_requested_unique_mines() -> None:
@@ -125,13 +125,13 @@ def test_adjacent_mine_count_is_correct() -> None:
     assert board.adjacent_mines((1, 1)) == 2
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/domain/test_board_creation.py -v`
 
 Expected: FAIL because `Board` is not defined.
 
-- [ ] **Step 3: Implement coordinate-safe board creation**
+- [x] **Step 3: Implement coordinate-safe board creation**
 
 ```python
 # backend/app/domain/models.py
@@ -208,13 +208,13 @@ class Board:
         ]
 ```
 
-- [ ] **Step 4: Run domain tests**
+- [x] **Step 4: Run domain tests**
 
 Run: `cd backend && pytest tests/domain/test_board_creation.py -v && ruff check app tests`
 
 Expected: three passing tests and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend/app/domain backend/tests/domain
@@ -227,7 +227,7 @@ git commit -m "feat: add deterministic minesweeper board"
 - Modify: `backend/app/domain/board.py`
 - Create: `backend/tests/domain/test_board_actions.py`
 
-- [ ] **Step 1: Write failing behavior tests**
+- [x] **Step 1: Write failing behavior tests**
 
 ```python
 def test_first_reveal_relocates_a_mine() -> None:
@@ -274,13 +274,13 @@ def test_flag_toggles_without_revealing_cell() -> None:
     assert board.cells[Coordinate(0, 0)] is CellState.FLAGGED
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/domain/test_board_actions.py -v`
 
 Expected: FAIL because action methods do not exist.
 
-- [ ] **Step 3: Implement actions using recursive-free flood fill**
+- [x] **Step 3: Implement actions using recursive-free flood fill**
 
 ```python
 def reveal(self, cell: Coordinate) -> None:
@@ -327,13 +327,13 @@ def _reveal_safe_region(self, origin: Coordinate) -> None:
             pending.extend(neighbor for neighbor in self.neighbors(cell) if self.cells[neighbor] is CellState.HIDDEN)
 ```
 
-- [ ] **Step 4: Run all domain tests**
+- [x] **Step 4: Run all domain tests**
 
 Run: `cd backend && pytest tests/domain -v && ruff check app tests`
 
 Expected: eight passing tests and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend/app/domain/board.py backend/tests/domain/test_board_actions.py
@@ -346,7 +346,7 @@ git commit -m "feat: implement minesweeper actions"
 - Create: `backend/app/services/games.py`
 - Create: `backend/tests/services/test_games.py`
 
-- [ ] **Step 1: Write failing service tests**
+- [x] **Step 1: Write failing service tests**
 
 ```python
 def test_created_game_has_a_uuid_and_hidden_mines() -> None:
@@ -367,13 +367,13 @@ def test_restart_reuses_the_original_configuration() -> None:
     assert restarted.id == game.id
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/services/test_games.py -v`
 
 Expected: FAIL because the service does not exist.
 
-- [ ] **Step 3: Implement service-owned snapshots**
+- [x] **Step 3: Implement service-owned snapshots**
 
 ```python
 @dataclass(frozen=True)
@@ -416,13 +416,13 @@ class GameService:
         return replacement
 ```
 
-- [ ] **Step 4: Run service tests**
+- [x] **Step 4: Run service tests**
 
 Run: `cd backend && pytest tests/services/test_games.py -v && ruff check app tests`
 
 Expected: two passing tests and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend/app/services backend/tests/services
@@ -437,7 +437,7 @@ git commit -m "feat: add game lifecycle service"
 - Modify: `backend/app/main.py`
 - Create: `backend/tests/api/test_games_api.py`
 
-- [ ] **Step 1: Write failing API contract tests**
+- [x] **Step 1: Write failing API contract tests**
 
 ```python
 async def test_create_and_reveal_game() -> None:
@@ -458,13 +458,13 @@ async def test_unknown_game_returns_404() -> None:
     assert response.status_code == 404
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/api/test_games_api.py -v`
 
 Expected: FAIL because no API routes are registered.
 
-- [ ] **Step 3: Register routes with explicit schemas**
+- [x] **Step 3: Register routes with explicit schemas**
 
 ```python
 router = APIRouter(prefix="/api/games", tags=["games"])
@@ -478,7 +478,7 @@ def reveal(game_id: str, request: CellActionRequest, service: GameService = Depe
     return GameStateResponse.from_domain(service.reveal(game_id, Coordinate(request.row, request.column)))
 ```
 
-- [ ] **Step 4: Add CORS and error handlers to the application factory**
+- [x] **Step 4: Add CORS and error handlers to the application factory**
 
 ```python
 def create_app() -> FastAPI:
@@ -490,13 +490,13 @@ def create_app() -> FastAPI:
     return app
 ```
 
-- [ ] **Step 5: Run API and complete backend checks**
+- [x] **Step 5: Run API and complete backend checks**
 
 Run: `cd backend && pytest -v && ruff check app tests`
 
 Expected: all backend tests pass and Ruff reports no findings.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add backend
@@ -515,7 +515,7 @@ git commit -m "feat: expose minesweeper api"
 - Create: `frontend/src/api/client.ts`
 - Create: `frontend/src/api/client.test.ts`
 
-- [ ] **Step 1: Write the failing API-client test**
+- [x] **Step 1: Write the failing API-client test**
 
 ```ts
 it("posts a cell reveal and returns game state", async () => {
@@ -525,13 +525,13 @@ it("posts a cell reveal and returns game state", async () => {
 });
 ```
 
-- [ ] **Step 2: Run it and verify it fails**
+- [x] **Step 2: Run it and verify it fails**
 
 Run: `cd frontend && npm test -- client.test.ts`
 
 Expected: FAIL because the client module does not exist.
 
-- [ ] **Step 3: Implement transport-neutral client functions**
+- [x] **Step 3: Implement transport-neutral client functions**
 
 ```ts
 export type CellAction = { row: number; column: number };
@@ -547,13 +547,13 @@ export const revealCell = (gameId: string, cell: CellAction) => request<GameStat
 export const toggleFlag = (gameId: string, cell: CellAction) => request<GameState>(`/games/${gameId}/flag`, { method: "POST", body: JSON.stringify(cell) });
 ```
 
-- [ ] **Step 4: Run frontend unit checks**
+- [x] **Step 4: Run frontend unit checks**
 
 Run: `cd frontend && npm test -- --run && npm run lint && npm run typecheck`
 
 Expected: client test passes, lint and TypeScript have no errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add frontend
@@ -569,7 +569,7 @@ git commit -m "build: bootstrap minesweeper frontend"
 - Create: `frontend/src/components/MinesweeperBoard.test.tsx`
 - Create: `frontend/src/App.tsx`
 
-- [ ] **Step 1: Write failing user-flow tests**
+- [x] **Step 1: Write failing user-flow tests**
 
 ```tsx
 it("reveals a cell with the primary action", async () => {
@@ -589,13 +589,13 @@ it("flags a hidden cell with the context-menu action", async () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd frontend && npm test -- MinesweeperBoard.test.tsx`
 
 Expected: FAIL because board components do not exist.
 
-- [ ] **Step 3: Implement semantic cells and action orchestration**
+- [x] **Step 3: Implement semantic cells and action orchestration**
 
 ```tsx
 export function CellButton({ cell, row, column, onReveal, onFlag }: CellButtonProps) {
@@ -616,13 +616,13 @@ function App() {
 }
 ```
 
-- [ ] **Step 4: Run component tests, lint, and type check**
+- [x] **Step 4: Run component tests, lint, and type check**
 
 Run: `cd frontend && npm test -- --run && npm run lint && npm run typecheck`
 
 Expected: all tests pass with no lint or type errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add frontend/src
