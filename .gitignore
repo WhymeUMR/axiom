@@ -206,6 +206,10 @@ tempCodeRunnerFile.py
 # Local Git worktrees
 .worktrees/
 
+# Node.js dependencies and build output
+node_modules/
+dist/
+
 # Ruff stuff:
 .ruff_cache/
 

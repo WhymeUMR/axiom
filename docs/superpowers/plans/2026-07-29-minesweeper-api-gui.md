@@ -515,7 +515,7 @@ git commit -m "feat: expose minesweeper api"
 - Create: `frontend/src/api/client.ts`
 - Create: `frontend/src/api/client.test.ts`
 
-- [ ] **Step 1: Write the failing API-client test**
+- [x] **Step 1: Write the failing API-client test**
 
 ```ts
 it("posts a cell reveal and returns game state", async () => {
@@ -525,13 +525,13 @@ it("posts a cell reveal and returns game state", async () => {
 });
 ```
 
-- [ ] **Step 2: Run it and verify it fails**
+- [x] **Step 2: Run it and verify it fails**
 
 Run: `cd frontend && npm test -- client.test.ts`
 
 Expected: FAIL because the client module does not exist.
 
-- [ ] **Step 3: Implement transport-neutral client functions**
+- [x] **Step 3: Implement transport-neutral client functions**
 
 ```ts
 export type CellAction = { row: number; column: number };
@@ -547,13 +547,13 @@ export const revealCell = (gameId: string, cell: CellAction) => request<GameStat
 export const toggleFlag = (gameId: string, cell: CellAction) => request<GameState>(`/games/${gameId}/flag`, { method: "POST", body: JSON.stringify(cell) });
 ```
 
-- [ ] **Step 4: Run frontend unit checks**
+- [x] **Step 4: Run frontend unit checks**
 
 Run: `cd frontend && npm test -- --run && npm run lint && npm run typecheck`
 
 Expected: client test passes, lint and TypeScript have no errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add frontend
@@ -569,7 +569,7 @@ git commit -m "build: bootstrap minesweeper frontend"
 - Create: `frontend/src/components/MinesweeperBoard.test.tsx`
 - Create: `frontend/src/App.tsx`
 
-- [ ] **Step 1: Write failing user-flow tests**
+- [x] **Step 1: Write failing user-flow tests**
 
 ```tsx
 it("reveals a cell with the primary action", async () => {
@@ -589,13 +589,13 @@ it("flags a hidden cell with the context-menu action", async () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd frontend && npm test -- MinesweeperBoard.test.tsx`
 
 Expected: FAIL because board components do not exist.
 
-- [ ] **Step 3: Implement semantic cells and action orchestration**
+- [x] **Step 3: Implement semantic cells and action orchestration**
 
 ```tsx
 export function CellButton({ cell, row, column, onReveal, onFlag }: CellButtonProps) {
@@ -616,13 +616,13 @@ function App() {
 }
 ```
 
-- [ ] **Step 4: Run component tests, lint, and type check**
+- [x] **Step 4: Run component tests, lint, and type check**
 
 Run: `cd frontend && npm test -- --run && npm run lint && npm run typecheck`
 
 Expected: all tests pass with no lint or type errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add frontend/src
