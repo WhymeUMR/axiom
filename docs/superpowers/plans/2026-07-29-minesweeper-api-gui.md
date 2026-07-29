@@ -38,7 +38,7 @@
 - Create: `backend/app/api/__init__.py`
 - Create: `backend/tests/test_smoke.py`
 
-- [ ] **Step 1: Write the failing import test**
+- [x] **Step 1: Write the failing import test**
 
 ```python
 def test_backend_package_is_importable() -> None:
@@ -47,13 +47,13 @@ def test_backend_package_is_importable() -> None:
     assert callable(create_app)
 ```
 
-- [ ] **Step 2: Run the test and verify it fails**
+- [x] **Step 2: Run the test and verify it fails**
 
 Run: `cd backend && pytest tests/test_smoke.py -v`
 
 Expected: FAIL because `app.main` does not exist.
 
-- [ ] **Step 3: Add package setup and the smallest application factory**
+- [x] **Step 3: Add package setup and the smallest application factory**
 
 ```toml
 [project]
@@ -82,13 +82,13 @@ def create_app() -> FastAPI:
 app = create_app()
 ```
 
-- [ ] **Step 4: Run the test and lint**
+- [x] **Step 4: Run the test and lint**
 
 Run: `cd backend && pytest tests/test_smoke.py -v && ruff check app tests`
 
 Expected: one passing test and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend
