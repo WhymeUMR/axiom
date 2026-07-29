@@ -209,6 +209,14 @@ tempCodeRunnerFile.py
 # Node.js dependencies and build output
 node_modules/
 dist/
+.vite/
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
+
+# macOS
+.DS_Store
 
 # Ruff stuff:
 .ruff_cache/
