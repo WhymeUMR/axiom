@@ -102,7 +102,7 @@ git commit -m "build: bootstrap minesweeper backend"
 - Create: `backend/app/domain/board.py`
 - Create: `backend/tests/domain/test_board_creation.py`
 
-- [ ] **Step 1: Write failing domain tests**
+- [x] **Step 1: Write failing domain tests**
 
 ```python
 def test_seeded_board_has_requested_unique_mines() -> None:
@@ -125,13 +125,13 @@ def test_adjacent_mine_count_is_correct() -> None:
     assert board.adjacent_mines((1, 1)) == 2
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/domain/test_board_creation.py -v`
 
 Expected: FAIL because `Board` is not defined.
 
-- [ ] **Step 3: Implement coordinate-safe board creation**
+- [x] **Step 3: Implement coordinate-safe board creation**
 
 ```python
 # backend/app/domain/models.py
@@ -208,13 +208,13 @@ class Board:
         ]
 ```
 
-- [ ] **Step 4: Run domain tests**
+- [x] **Step 4: Run domain tests**
 
 Run: `cd backend && pytest tests/domain/test_board_creation.py -v && ruff check app tests`
 
 Expected: three passing tests and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend/app/domain backend/tests/domain
