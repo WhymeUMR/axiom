@@ -227,7 +227,7 @@ git commit -m "feat: add deterministic minesweeper board"
 - Modify: `backend/app/domain/board.py`
 - Create: `backend/tests/domain/test_board_actions.py`
 
-- [ ] **Step 1: Write failing behavior tests**
+- [x] **Step 1: Write failing behavior tests**
 
 ```python
 def test_first_reveal_relocates_a_mine() -> None:
@@ -274,13 +274,13 @@ def test_flag_toggles_without_revealing_cell() -> None:
     assert board.cells[Coordinate(0, 0)] is CellState.FLAGGED
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/domain/test_board_actions.py -v`
 
 Expected: FAIL because action methods do not exist.
 
-- [ ] **Step 3: Implement actions using recursive-free flood fill**
+- [x] **Step 3: Implement actions using recursive-free flood fill**
 
 ```python
 def reveal(self, cell: Coordinate) -> None:
@@ -327,13 +327,13 @@ def _reveal_safe_region(self, origin: Coordinate) -> None:
             pending.extend(neighbor for neighbor in self.neighbors(cell) if self.cells[neighbor] is CellState.HIDDEN)
 ```
 
-- [ ] **Step 4: Run all domain tests**
+- [x] **Step 4: Run all domain tests**
 
 Run: `cd backend && pytest tests/domain -v && ruff check app tests`
 
 Expected: eight passing tests and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend/app/domain/board.py backend/tests/domain/test_board_actions.py

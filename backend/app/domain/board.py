@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from random import Random
 
-from app.domain.models import CellState, Coordinate, GameStatus
+from app.domain.models import CellState, Coordinate, GameFinishedError, GameStatus
 
 
 @dataclass
@@ -60,6 +60,65 @@ class Board:
 
     def adjacent_mines(self, cell: Coordinate) -> int:
         return sum(neighbor in self.mines for neighbor in self.neighbors(cell))
+
+    def reveal(self, cell: Coordinate) -> None:
+        self._require_active()
+        self._require_inside(cell)
+        if self.cells[cell] is CellState.FLAGGED:
+            return
+
+        if not self._has_revealed_cells() and cell in self.mines:
+            self._relocate_mine(cell)
+
+        if cell in self.mines:
+            self.cells[cell] = CellState.REVEALED
+            self.status = GameStatus.LOST
+            return
+
+        self._reveal_safe_region(cell)
+        if all(
+            self.cells[coordinate] is CellState.REVEALED
+            for coordinate in self.cells
+            if coordinate not in self.mines
+        ):
+            self.status = GameStatus.WON
+
+    def toggle_flag(self, cell: Coordinate) -> None:
+        self._require_active()
+        self._require_inside(cell)
+        if self.cells[cell] is CellState.REVEALED:
+            return
+        self.cells[cell] = (
+            CellState.HIDDEN
+            if self.cells[cell] is CellState.FLAGGED
+            else CellState.FLAGGED
+        )
+
+    def _has_revealed_cells(self) -> bool:
+        return any(state is CellState.REVEALED for state in self.cells.values())
+
+    def _relocate_mine(self, cell: Coordinate) -> None:
+        replacement = next(coordinate for coordinate in self.cells if coordinate not in self.mines)
+        self.mines.remove(cell)
+        self.mines.add(replacement)
+
+    def _reveal_safe_region(self, origin: Coordinate) -> None:
+        pending = [origin]
+        while pending:
+            cell = pending.pop()
+            if self.cells[cell] is not CellState.HIDDEN or cell in self.mines:
+                continue
+            self.cells[cell] = CellState.REVEALED
+            if self.adjacent_mines(cell) == 0:
+                pending.extend(
+                    neighbor
+                    for neighbor in self.neighbors(cell)
+                    if self.cells[neighbor] is CellState.HIDDEN
+                )
+
+    def _require_active(self) -> None:
+        if self.status is not GameStatus.IN_PROGRESS:
+            raise GameFinishedError("game has already finished")
 
     def _require_inside(self, cell: Coordinate) -> None:
         if not self.contains(cell):
