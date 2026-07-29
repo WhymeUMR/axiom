@@ -437,7 +437,7 @@ git commit -m "feat: add game lifecycle service"
 - Modify: `backend/app/main.py`
 - Create: `backend/tests/api/test_games_api.py`
 
-- [ ] **Step 1: Write failing API contract tests**
+- [x] **Step 1: Write failing API contract tests**
 
 ```python
 async def test_create_and_reveal_game() -> None:
@@ -458,13 +458,13 @@ async def test_unknown_game_returns_404() -> None:
     assert response.status_code == 404
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/api/test_games_api.py -v`
 
 Expected: FAIL because no API routes are registered.
 
-- [ ] **Step 3: Register routes with explicit schemas**
+- [x] **Step 3: Register routes with explicit schemas**
 
 ```python
 router = APIRouter(prefix="/api/games", tags=["games"])
@@ -478,7 +478,7 @@ def reveal(game_id: str, request: CellActionRequest, service: GameService = Depe
     return GameStateResponse.from_domain(service.reveal(game_id, Coordinate(request.row, request.column)))
 ```
 
-- [ ] **Step 4: Add CORS and error handlers to the application factory**
+- [x] **Step 4: Add CORS and error handlers to the application factory**
 
 ```python
 def create_app() -> FastAPI:
@@ -490,13 +490,13 @@ def create_app() -> FastAPI:
     return app
 ```
 
-- [ ] **Step 5: Run API and complete backend checks**
+- [x] **Step 5: Run API and complete backend checks**
 
 Run: `cd backend && pytest -v && ruff check app tests`
 
 Expected: all backend tests pass and Ruff reports no findings.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add backend
