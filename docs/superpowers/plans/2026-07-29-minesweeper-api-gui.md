@@ -346,7 +346,7 @@ git commit -m "feat: implement minesweeper actions"
 - Create: `backend/app/services/games.py`
 - Create: `backend/tests/services/test_games.py`
 
-- [ ] **Step 1: Write failing service tests**
+- [x] **Step 1: Write failing service tests**
 
 ```python
 def test_created_game_has_a_uuid_and_hidden_mines() -> None:
@@ -367,13 +367,13 @@ def test_restart_reuses_the_original_configuration() -> None:
     assert restarted.id == game.id
 ```
 
-- [ ] **Step 2: Run the tests and verify they fail**
+- [x] **Step 2: Run the tests and verify they fail**
 
 Run: `cd backend && pytest tests/services/test_games.py -v`
 
 Expected: FAIL because the service does not exist.
 
-- [ ] **Step 3: Implement service-owned snapshots**
+- [x] **Step 3: Implement service-owned snapshots**
 
 ```python
 @dataclass(frozen=True)
@@ -416,13 +416,13 @@ class GameService:
         return replacement
 ```
 
-- [ ] **Step 4: Run service tests**
+- [x] **Step 4: Run service tests**
 
 Run: `cd backend && pytest tests/services/test_games.py -v && ruff check app tests`
 
 Expected: two passing tests and no Ruff findings.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add backend/app/services backend/tests/services
